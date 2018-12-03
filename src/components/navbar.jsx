@@ -56,9 +56,6 @@ class Navbar extends Component {
             <Button color="inherit" onClick={this.goTo.bind(this, "home")}>
               Home
             </Button>
-            <Button color="inherit" onClick={this.goTo.bind(this, "activity")}>
-              Activity
-            </Button>
             {!isAuthenticated() && (
               <Button color="inherit" onClick={this.login.bind(this)}>
                 Login
