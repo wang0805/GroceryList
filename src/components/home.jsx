@@ -20,10 +20,6 @@ class Home extends Component {
     this.props.auth.login();
   }
 
-  state = {
-    user: ""
-  };
-
   render() {
     const { isAuthenticated } = this.props.auth;
     return (

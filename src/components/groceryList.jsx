@@ -3,6 +3,7 @@ import { Query } from "react-apollo";
 import { getGroceriesToBuy } from "../queries";
 import AddItems from "./AddItems";
 import MarkDone from "./MarkDone";
+import DeleteItem from "./DeleteItem";
 
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -22,10 +23,11 @@ class GroceriesList extends Component {
         {({ loading, error, data }) => {
           if (loading) return <p>loading...</p>;
           if (error)
-            return `Error ${
-              error.message
-            }, please try again ${window.location.reload()}`;
-          if (data.orders.length === 0) {
+            // return `Error ${
+            //   error.message
+            // }, please try again ${window.location.reload()}`;
+            return `Error ${error.message}, please try again`;
+          if (data.grocerylist.length === 0) {
             return (
               <div>
                 <h2>Empty Grocery list</h2>
@@ -36,13 +38,15 @@ class GroceriesList extends Component {
 
           return (
             <div>
-              <List dense className={classes.root}>
-                {data.grocerylist.map(item => (
-                  <ListItem button>
+              <List>
+                {data.grocerylist.map((item, index) => (
+                  <ListItem key={index} button>
                     <h4>
                       {(count = count + 1)}. {item.item_text}
                     </h4>
+
                     <MarkDone item_id={item.item_id} />
+
                     <DeleteItem item_id={item.item_id} />
                   </ListItem>
                 ))}

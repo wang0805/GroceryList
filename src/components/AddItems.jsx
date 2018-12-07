@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { getGroceriesToBuy, addItem } from "../queries";
+import { Mutation } from "react-apollo";
 
 class AddItems extends Component {
-  contructor(props) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -11,14 +12,15 @@ class AddItems extends Component {
     };
   }
 
-  additem(insert_grocerlist) {
+  additem(insert_grocerylist) {
+    console.log("userid: ", localStorage.getItem("sub"));
     let item_user = localStorage.getItem("sub");
     // set state of item_user THEN execute the callback so that we have the variables values in this.state
     // all variables are included in a dict with variable name as key and value as dict
     // then the variable dict is assigned to 'variables' key as per below
     // refetchQueries is a list of dictionaries with each dictionary containing the name of query to execute ON mutation completion
     this.setState({ item_user }, () => {
-      insert_grocerlist({
+      insert_grocerylist({
         variables: this.state,
         refetchQueries: [{ query: getGroceriesToBuy }]
       });
@@ -33,6 +35,7 @@ class AddItems extends Component {
             <form
               onSubmit={e => {
                 e.preventDefault();
+                this.setState({ item_text: this.input.value });
                 this.additem(insert_grocerylist);
               }}
             >
@@ -41,9 +44,9 @@ class AddItems extends Component {
                   this.input = node;
                 }}
                 placeholder="insert a grocery item"
-                onChange={e => this.setState({ item_text: this.input.value })}
+                onChange={e => this.setState({ item_text: e.target.value })}
               />
-              <button type="submit">Add Todo</button>
+              <button type="submit">Add Item</button>
             </form>
           </div>
         )}

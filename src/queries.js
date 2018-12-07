@@ -42,7 +42,7 @@ export const deleteItem = gql`
 
 export const getAllItems = gql`
   {
-    grocerylist(order_by: [item_mark_asc, item_id_asc]) {
+    grocerylist(order_by: { item_mark: asc, item_id: asc }) {
       item_id
       item_text
       item_mark
