@@ -51,7 +51,7 @@ class Navbar extends Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              Navbar
+              Grocery List
             </Typography>
             <Button color="inherit" onClick={this.goTo.bind(this, "home")}>
               Home

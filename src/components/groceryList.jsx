@@ -14,6 +14,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Checkbox from "@material-ui/core/Checkbox";
 import Avatar from "@material-ui/core/Avatar";
+import Grid from "@material-ui/core/Grid";
 
 class GroceriesList extends Component {
   render() {
@@ -29,10 +30,15 @@ class GroceriesList extends Component {
             return `Error ${error.message}, please try again`;
           if (data.grocerylist.length === 0) {
             return (
-              <div>
+              <Grid
+                container
+                direction="column"
+                justify="space-evenly"
+                alignItems="center"
+              >
                 <h2>Empty Grocery list</h2>
                 <AddItems />
-              </div>
+              </Grid>
             );
           }
 
@@ -41,18 +47,30 @@ class GroceriesList extends Component {
               <List>
                 {data.grocerylist.map((item, index) => (
                   <ListItem key={index} button>
-                    <h4>
-                      {(count = count + 1)}. {item.item_text}
-                    </h4>
-
-                    <MarkDone item_id={item.item_id} />
-
-                    <DeleteItem item_id={item.item_id} />
+                    <Grid
+                      container
+                      direction="row"
+                      justify="center"
+                      alignItems="center"
+                    >
+                      <h4>
+                        {(count = count + 1)}. {item.item_text}
+                      </h4>
+                      <MarkDone item_id={item.item_id} />
+                      <DeleteItem item_id={item.item_id} />
+                    </Grid>
                   </ListItem>
                 ))}
               </List>
               <List>
-                <AddItems />
+                <Grid
+                  container
+                  direction="row"
+                  justify="center"
+                  alignItems="center"
+                >
+                  <AddItems />
+                </Grid>
               </List>
             </div>
           );

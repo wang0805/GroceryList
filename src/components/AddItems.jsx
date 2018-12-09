@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { getGroceriesToBuy, addItem } from "../queries";
 import { Mutation } from "react-apollo";
 
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+
 class AddItems extends Component {
   constructor(props) {
     super(props);
@@ -33,20 +36,42 @@ class AddItems extends Component {
         {(insert_grocerylist, { data }) => (
           <div>
             <form
-              onSubmit={e => {
+              onSubmit={async e => {
                 e.preventDefault();
-                this.setState({ item_text: this.input.value });
-                this.additem(insert_grocerylist);
+                // await this.setState({ item_text: this.input.value });
+                await this.additem(insert_grocerylist);
+                await this.setState({ item_text: "" });
               }}
             >
-              <input
+              <TextField
+                id="outlined-email-input"
+                // label="Grocery"
+                placeholder="Grocery items"
+                name="Grocery"
+                autoComplete="Grocery"
+                margin="normal"
+                variant="outlined"
+                style={{ height: 40 }}
+                onChange={e => this.setState({ item_text: e.target.value })}
+                value={this.state.item_text}
+              />
+              {/* <input
                 ref={node => {
                   this.input = node;
                 }}
                 placeholder="insert a grocery item"
                 onChange={e => this.setState({ item_text: e.target.value })}
-              />
-              <button type="submit">Add Item</button>
+                value={this.state.item_text}
+              /> */}
+              <Button
+                variant="contained"
+                size="large"
+                color="primary"
+                type="submit"
+                style={{ positon: "relative", top: 15 }}
+              >
+                Add
+              </Button>
             </form>
           </div>
         )}
